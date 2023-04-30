@@ -1,7 +1,7 @@
 from DIPPID import SensorUDP
 
 # use UPD (via WiFi) for communication
-PORT = 5700
+PORT = 5701
 sensor = SensorUDP(PORT)
 
 def handle_hearbeat(data):
