@@ -2,9 +2,10 @@ import socket
 import time
 import numpy as np
 import random
+import json
 
 IP = '127.0.0.1'
-PORT = 5701
+PORT = 5700
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -17,11 +18,11 @@ def random_button():
 
 # sine functions for each axis of the accelerometer
 def random_acc(x):
-    dict = {}
-    dict['x'] = np.sin(x)
-    dict['y'] = np.sin(2*x)
-    dict['z'] = np.sin(3*x)
-    return dict
+    dic = {}
+    dic['x'] = np.sin(x)
+    dic['y'] = np.sin(2*x)
+    dic['z'] = np.sin(3*x)
+    return dic
 
 while True:
 
@@ -29,11 +30,11 @@ while True:
     pressed = random_button()
     
     message = {}
-    message['acceleration'] = acc
-    message['button'] = pressed
+    message['accelerometer'] = acc
+    message['button_1'] = pressed
     print('message', message)
 
-    sock.sendto(str(message).encode(), (IP, PORT))
+    sock.sendto(json.dumps(message).encode(), (IP, PORT))
 
     x += 0.1
     time.sleep(1)
